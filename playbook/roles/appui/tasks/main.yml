@@ -1,0 +1,37 @@
+- name: Download and extract tomcat
+  unarchive:
+    src: "{{TOMCAT_URL}}"
+    dest: /home/{{APPUSER}}
+    remote_src: yes
+  become_user: "{{APPUSER}}"
+
+- name: Download war file 
+  get_url:
+    url: "{{UI_WAR_URL}}"
+    dest: "{{TOMCAT_LOCATION}}/webapps/student.war"
+  become_user: "{{APPUSER}}"
+
+- name: Download MySQL Jar file 
+  get_url:
+    url: "{{MYSQL_JAR_URL}}"
+    dest: "{{TOMCAT_LOCATION}}/lib/mysql-connector.jar"
+  become_user: "{{APPUSER}}"
+
+- name: Update DB Configuration
+  template: 
+    src: context.xml.j2 
+    dest: "{{TOMCAT_LOCATION}}/conf/context.xml"
+  become_user: "{{APPUSER}}"
+
+- name: Create tomcat INIT Script 
+  template:
+    src: tomcat-init
+    dest: /etc/init.d/tomcat
+    mode: 0755
+
+- name: Restart TOmcat Service 
+  service:
+    name: tomcat
+    state: restarted
+    enabled: yes
+

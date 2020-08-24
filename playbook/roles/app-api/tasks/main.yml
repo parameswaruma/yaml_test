@@ -1,0 +1,33 @@
+- name: Create API directory 
+  file:
+    path: "{{API_DIR}}"
+    state: directory
+  become_user: "{{APPUSER}}"
+
+- name: Download API war file 
+  get_url:
+    url: "{{API_WAR_URL}}"
+    dest: "{{API_DIR}}/studentapi.war"
+  become_user: "{{APPUSER}}"
+
+- name: Update DB Cred in login scripts 
+  blockinfile:
+    path: /home/{{APPUSER}}/.bash_profile
+    block: |
+      export DBUSER=dummy
+      export DBPASS=dummy
+      export DBHOST=dummy
+      export DBNAME=dummy
+  become_user: "{{APPUSER}}"
+
+- name: Update studentapi init script 
+  template:
+    src: studentapi-init
+    dest: /etc/init.d/studentapi
+    mode: 0755
+
+- name: Restart API Service 
+  service:
+    name: studentapi
+    state: restarted
+    enabled: yes

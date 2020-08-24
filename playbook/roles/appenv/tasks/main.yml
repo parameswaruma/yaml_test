@@ -1,0 +1,8 @@
+- name: Install Java 
+  package:
+    name: java
+    state: present
+
+- name: Create App User
+  user:
+    name: "{{APPUSER}}"

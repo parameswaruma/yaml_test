@@ -1,0 +1,17 @@
+- name: Install Web Server 
+  package:
+    name: httpd
+    state: present
+  notify: Restart HTTPD
+
+- name: Copy studentapp condifuration
+  copy:
+    src: studentapp.conf
+    dest: /etc/httpd/conf.d/studentapp.conf
+  notify: Restart HTTPD
+
+- name: Download default index file 
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/studentapi-cit/index.html
+    dest: /var/www/html/index.html
+  notify: Restart HTTPD

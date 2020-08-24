@@ -1,0 +1,12 @@
+TOMCAT_VERSION: 8.5.37
+TOMCAT_URL: https://archive.apache.org/dist/tomcat/tomcat-8/v{{TOMCAT_VERSION}}/bin/apache-tomcat-{{TOMCAT_VERSION}}.tar.gz
+TOMCAT_LOCATION: /home/{{APPUSER}}/apache-tomcat-{{TOMCAT_VERSION}}
+UI_WAR_URL: https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war
+MYSQL_JAR_URL: https://s3-us-west-2.amazonaws.com/studentapi-cit/mysql-connector.jar
+
+DBUSER: dummy
+DBPASS: dummy
+DBHOST: dummy
+DBNAME: dummy
+
+#TOMCAT_INIT_SCRIPT_URL: https://s3-us-west-2.amazonaws.com/studentapi-cit/tomcat-init
