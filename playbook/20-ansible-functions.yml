@@ -1,0 +1,7 @@
+- name: Use functions
+  hosts: centos
+  vars:
+    URL: http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.38/bin/apache-tomcat-8.5.38.tar.gz
+  tasks:
+    - debug: msg="FileName = {{ URL.split("/") | last }}"
+

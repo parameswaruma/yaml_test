@@ -1,0 +1,16 @@
+- name: Demo on when conditions 
+  hosts: all 
+  become: yes
+  tasks:
+    - name: Install web server on ubuntu
+      package:
+        name: apache2
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install web server on centos
+      package:
+        name: httpd
+        state: present
+      when: ansible_distribution == "CentOS"
+      

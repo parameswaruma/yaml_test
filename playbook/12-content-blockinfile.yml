@@ -1,0 +1,11 @@
+- name: Content handling with blockinfile 
+  hosts: all
+  tasks:
+    - name: blockinfile 
+      blockinfile:
+        create: yes
+        path: /tmp/sample1.txt
+        block: |
+          Hello
+          World
+  

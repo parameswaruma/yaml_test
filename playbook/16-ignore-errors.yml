@@ -1,0 +1,20 @@
+- name: Demo on ignore_errors on web server restart 
+  hosts: centos
+  become: yes
+  tasks:
+    - name: Check web server is running or not.
+      shell: ps -ef | grep httpd | grep -v grep
+      register: out 
+      ignore_errors: true
+
+    - name: Start the service if not started
+      service:
+        name: httpd
+        state: started
+      when: out.rc == 1
+
+    - name: Restart the service if started
+      service:
+        name: httpd
+        state: restarted
+      when: out.rc == 0

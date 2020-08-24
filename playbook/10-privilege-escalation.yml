@@ -1,0 +1,17 @@
+- name: Become a root user
+  hosts: all
+  tasks: 
+    - name:  id command 
+      shell: id
+      register: out1
+
+    - debug:
+        msg: "{{out1}}"
+
+    - name: id command as root user
+      shell: id
+      register: out2
+      become: yes ## this privilege escation can be done at play level as well.
+
+    - debug:
+        msg: "{{out2}}"

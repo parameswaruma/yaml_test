@@ -1,0 +1,9 @@
+- name: Deploy Web and Application 
+  hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - webserver
+    - appui
+    - app-api
+###Some Dummy

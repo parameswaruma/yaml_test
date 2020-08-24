@@ -1,0 +1,8 @@
+- name: Print ansible local facts
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Print prject name and node name
+      debug:
+        msg: Node {{ansible_local.info.NAME}} belongs to {{ansible_local.info.PROJECT}} Project
+        

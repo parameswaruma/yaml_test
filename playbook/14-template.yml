@@ -1,0 +1,7 @@
+- name: Demo on templates
+  hosts: all
+  tasks:
+    - name: Demo on template 
+      template:
+        src: /tmp/sample.txt
+        dest: /tmp/sample.txt

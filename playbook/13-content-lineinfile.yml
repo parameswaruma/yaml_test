@@ -1,0 +1,11 @@
+- name: Content handling with lineinfile 
+  hosts: all
+  tasks:
+    - name: lineinfile 
+      lineinfile:
+        create: yes
+        path: /tmp/sample2.txt
+        line: |
+          Hello
+          World
+  

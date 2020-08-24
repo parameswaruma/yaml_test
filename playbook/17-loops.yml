@@ -1,0 +1,29 @@
+- name: demo on loops
+  hosts: centos
+  become: yes
+  tasks:
+    - name: Installing Packages
+      package:
+        name: "{{item}}"
+        state: present
+      loop: ## Loop with list of values
+        - httpd
+        - vim 
+        - unzip
+
+    - name: Demo on loop with hash 
+      debug:
+        msg: "Course Name -- {{item.course_name}} & Course Timing -- {{item.timings}}"
+      loop: 
+        - {course_name: 'DevOps', timings: '7AM'}
+        - {course_name: 'AWS', timings: '8AM'}
+
+    - name: Complex loops
+      debug:
+        msg: "{{item[0]}}"
+      loop: "{{ ['alice', 'bob'] |product(['clientdb', 'employeedb', 'providerdb'])|list }}"
+
+    - name: query all hostnames
+      debug:
+        msg: "{{item}}"
+      loop: "{{ query('inventory_hostnames', 'all') }}"
